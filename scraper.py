@@ -3815,7 +3815,7 @@ from datetime import date
 from datetime import datetime
 import time
 import re
-import DateParser
+#import DateParser
 from BeautifulSoup import BeautifulSoup
 import unittest
 
@@ -4518,12 +4518,12 @@ from datetime import date
 from datetime import datetime
 import time
 import re
-import DateParser
+#import DateParser
 from BeautifulSoup import BeautifulSoup
 import unittest
 
-util = scraperwiki.utils.swimport("utility_library")
-scrapemark = scraperwiki.utils.swimport("scrapemark_09")
+#util = scraperwiki.utils.swimport("utility_library")
+#scrapemark = scraperwiki.utils.swimport("scrapemark_09")
 
 class BaseScraper(): # scraper template class to be subclassed by all children
 
