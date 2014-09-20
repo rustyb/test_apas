@@ -3819,8 +3819,8 @@ import re
 from BeautifulSoup import BeautifulSoup
 import unittest
 
-util = scraperwiki.utils.swimport("utility_library")
-scrapemark = scraperwiki.utils.swimport("scrapemark_09")
+#util = scraperwiki.utils.swimport("utility_library")
+#scrapemark = scraperwiki.utils.swimport("scrapemark_09")
 
 class BaseScraper(): # scraper template class to be subclassed by all children
 
