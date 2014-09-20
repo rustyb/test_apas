@@ -3815,7 +3815,7 @@ from datetime import date
 from datetime import datetime
 import time
 import re
-import dateparser
+import DateParser
 from BeautifulSoup import BeautifulSoup
 import unittest
 
@@ -4063,7 +4063,7 @@ class BaseScraper(): # scraper template class to be subclassed by all children
                 elif k.endswith('_date') or k.startswith('date_'):
                     text = GAPS_REGEX.sub(' ', v) # normalise any internal space (allows date conversion to handle non-breakable spaces)
                     try: # note bug: the date parser turns an all spaces string into today's date
-                        dt = dateparser.parse(text, dayfirst=True).date()
+                        dt = DateParser.parse(text, dayfirst=True).date()
                         v = dt.strftime(ISO8601_DATE)
                     except:
                         v = None # badly formatted dates are stripped out
@@ -4518,7 +4518,7 @@ from datetime import date
 from datetime import datetime
 import time
 import re
-import dateparser
+import DateParser
 from BeautifulSoup import BeautifulSoup
 import unittest
 
@@ -4766,7 +4766,7 @@ class BaseScraper(): # scraper template class to be subclassed by all children
                 elif k.endswith('_date') or k.startswith('date_'):
                     text = GAPS_REGEX.sub(' ', v) # normalise any internal space (allows date conversion to handle non-breakable spaces)
                     try: # note bug: the date parser turns an all spaces string into today's date
-                        dt = dateparser.parse(text, dayfirst=True).date()
+                        dt = DateParser.parse(text, dayfirst=True).date()
                         v = dt.strftime(ISO8601_DATE)
                     except:
                         v = None # badly formatted dates are stripped out
