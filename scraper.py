@@ -1268,7 +1268,7 @@ from cStringIO import StringIO
 from csv import reader
 import random
 import cookielib
-import matplotlib.pyplot as pl
+#import matplotlib.pyplot as pl
 import base64
 import sys
 import cPickle
@@ -2359,40 +2359,7 @@ def mcache_fetch(key):
         keyhash = hash(key)
     return copy.deepcopy(CACHE.get(keyhash))
 
-#Given a list of dates as ISO8601 values, plot a histogram by month.
-# output is a base64 encoded PNG string
-def plotdates(dts, dpi=50, mindate = None, maxdate = None):
-    if not dts: return None
-    if not mindate: mindate=min(dts)
-    if not maxdate: maxdate=max(dts)
-    ym=mindate[:7]; 
-    months=[]; counts=[]
-    while ym<=maxdate[:7]:
-        try:
-            m = int(ym[5:7]); y = int(ym[:4])
-        except:
-            return None
-        months.append(date(y, m, 1))
-        counts.append(sum([1 if (dd[:7]==ym) else 0 for dd in dts]))
-        m = m + 1
-        if m > 12: y = y + 1; m = 1
-        ym = str(y)+'-'+format(m, '02d')
-    fig=pl.figure()
-    ax=fig.add_subplot(111)
-    ax.bar(months,counts,width=20.0)
-    for xlabel_i in ax.get_xticklabels():
-        xlabel_i.set_fontsize(20)
-    for ylabel_i in ax.get_yticklabels():
-        ylabel_i.set_fontsize(20) 
-    ax.xaxis_date()
-    fig.autofmt_xdate()
-    #pl.draw()
-    cout = StringIO()
-    pl.savefig(cout, format="png", dpi=dpi)
-    #print counts, months
-    return base64.encodestring(cout.getvalue())
 
-#default css for views
 def base_css():
     css = """
 body {
@@ -2579,7 +2546,7 @@ from cStringIO import StringIO
 from csv import reader
 import random
 import cookielib
-import matplotlib.pyplot as pl
+#import matplotlib.pyplot as pl
 import base64
 import sys
 import cPickle
@@ -3670,38 +3637,6 @@ def mcache_fetch(key):
         keyhash = hash(key)
     return copy.deepcopy(CACHE.get(keyhash))
 
-#Given a list of dates as ISO8601 values, plot a histogram by month.
-# output is a base64 encoded PNG string
-def plotdates(dts, dpi=50, mindate = None, maxdate = None):
-    if not dts: return None
-    if not mindate: mindate=min(dts)
-    if not maxdate: maxdate=max(dts)
-    ym=mindate[:7]; 
-    months=[]; counts=[]
-    while ym<=maxdate[:7]:
-        try:
-            m = int(ym[5:7]); y = int(ym[:4])
-        except:
-            return None
-        months.append(date(y, m, 1))
-        counts.append(sum([1 if (dd[:7]==ym) else 0 for dd in dts]))
-        m = m + 1
-        if m > 12: y = y + 1; m = 1
-        ym = str(y)+'-'+format(m, '02d')
-    fig=pl.figure()
-    ax=fig.add_subplot(111)
-    ax.bar(months,counts,width=20.0)
-    for xlabel_i in ax.get_xticklabels():
-        xlabel_i.set_fontsize(20)
-    for ylabel_i in ax.get_yticklabels():
-        ylabel_i.set_fontsize(20) 
-    ax.xaxis_date()
-    fig.autofmt_xdate()
-    #pl.draw()
-    cout = StringIO()
-    pl.savefig(cout, format="png", dpi=dpi)
-    #print counts, months
-    return base64.encodestring(cout.getvalue())
 
 #default css for views
 def base_css():
