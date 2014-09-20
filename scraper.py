@@ -5401,7 +5401,7 @@ class DlrcocoScraper(SwiftLGScraper):
 
 if __name__ == 'scraper':
     scraper = DlrcocoScraper()
-    scraper.reset('2014-08-14', '2013-09-01')
+    #scraper.reset('2014-08-14', '2013-09-01')
     scraper.run()
 
     #scraperwiki.sqlite.execute("update Slough set date_scraped = null, address = null, status = null where uid = 'P/00162/056'")
