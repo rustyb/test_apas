@@ -11,13 +11,22 @@ def remove_characters(clump):
     return re.sub(r'[\r\n\t\xa0]+', '', clump)
 
 def scrape_application(link):
+    #get data on agent and application person
+    details_page = link
+    print 'Scraping Details: ', details_page
+    page_d = scraperwiki.scrape(details_page)
+    tree_app = html.fromstring(page_d)
+    
+    #get data from decision tab page
     decision_page = link + '&theTabNo=2'
-    print 'Scarping: ', decision_page
+    print 'Scraping Decision: ', decision_page
     page = scraperwiki.scrape(decision_page)
     tree = html.fromstring(page)
+   
     data = {
+        'info_url' : link,
         'decision' : remove_characters(tree.cssselect("div#tabs_container div#tabContent div#fieldset_data p.fieldset_data")[0].text),
-        'app_date' : remove_characters(tree.cssselect("div#apas_form fieldset.apas div#fieldset_data p.fieldset_data")[0].text),
+        'app_date' : remove_characters(tree.cssselect("div#apas_form fieldset.apas div#fieldset_data p.fieldset_data")[0].text_content()),
         'app_ref' : remove_characters(tree.cssselect("div#apas_form fieldset.apas div#fieldset_data p.fieldset_data")[1].text),
         'reg_date' : remove_characters(tree.cssselect("div#apas_form fieldset.apas div#fieldset_data p.fieldset_data")[2].text),
         'decision_date' : remove_characters(tree.cssselect("div#tabs_container div#tabContent div#fieldset_data p.fieldset_data")[1].text),
@@ -28,11 +37,12 @@ def scrape_application(link):
         'full_desc' : remove_characters(tree.cssselect("div#apas_form fieldset.apas div#fieldset_data p.fieldset_data")[8].text),
         'app_status' : remove_characters(tree.cssselect("div#apas_form fieldset.apas div#fieldset_data p.fieldset_data")[9].text),
         'status_desc' : remove_characters(tree.cssselect("div#apas_form fieldset.apas div#fieldset_data p.fieldset_data")[10].text),
-        'comment' : remove_characters(tree.cssselect("div#apas_form fieldset.apas div#fieldset_data p.fieldset_data")[11].text)
-        
+        'comment' : remove_characters(tree.cssselect("div#apas_form fieldset.apas div#fieldset_data p.fieldset_data")[11].text),
+        'application_company' : remove_characters(tree_app.cssselect("div#tabs_container div#tabContent div#fieldset_data p.fieldset_data")[2].text),
+        'agent' : remove_characters(tree_app.cssselect("div#tabs_container div#tabContent div#fieldset_data p.fieldset_data")[8].text)
         }
-    scraperwiki.sqlite.save(unique_keys=['app_ref'], data=data)  
-        
+    print 'Scraping Complete :) NEXT! \n\n'
+    scraperwiki.sqlite.save(unique_keys=['app_ref'], data=data)
 
 
 
@@ -61,7 +71,7 @@ links = ['http://planning.dlrcoco.ie/swiftlg/apas/run/WPHAPPDETAIL.DisplayUrl?th
 'http://planning.dlrcoco.ie/swiftlg/apas/run/WPHAPPDETAIL.DisplayUrl?theApnID=D14A/0338',
 'http://planning.dlrcoco.ie/swiftlg/apas/run/WPHAPPDETAIL.DisplayUrl?theApnID=D14A/0515',
 'http://planning.dlrcoco.ie/swiftlg/apas/run/WPHAPPDETAIL.DisplayUrl?theApnID=D14A/0501',
-#'http://planning.dlrcoco.ie/swiftlg/apas/run/WPHAPPDETAIL.DisplayUrl?theApnID=Ref 9814', #doesn't like spaces
+'http://planning.dlrcoco.ie/swiftlg/apas/run/WPHAPPDETAIL.DisplayUrl?theApnID=Ref%209814', #doesn't like spaces
 'http://planning.dlrcoco.ie/swiftlg/apas/run/WPHAPPDETAIL.DisplayUrl?theApnID=D98A/0886/E2',
 'http://planning.dlrcoco.ie/swiftlg/apas/run/WPHAPPDETAIL.DisplayUrl?theApnID=D06A/0927/E',
 'http://planning.dlrcoco.ie/swiftlg/apas/run/WPHAPPDETAIL.DisplayUrl?theApnID=D03A/0584/E1',
